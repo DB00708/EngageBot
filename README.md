@@ -7,7 +7,6 @@ EngageBot is an AI-powered chatbot that uses sentiment analysis and natural lang
 - [Installation](#installation)
 - [Setting Up the MySQL Database](#setting-up-the-mysql-database)
 - [Running the API](#running-the-api)
-- [API Endpoints](#api-endpoints)
 
 ## Prerequisites
 
