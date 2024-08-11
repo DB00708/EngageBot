@@ -28,6 +28,13 @@ class NLPProcessor:
         email_regex = r"[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+"
         return bool(re.search(email_regex, text))
 
+    def extract_number(self, text):
+        pattern = r'-?\d+(?:\.\d+)?'
+        match = re.search(pattern, text)
+        if match:
+            return int(match.group())
+        return None
+
 
 class SentimentAnalyzer:
     def __init__(self):
@@ -152,6 +159,9 @@ class ChatbotAI:
                     self.user_data["name"] = entity["entity"]
                 if label == "GPE":
                     self.user_data["location"] = entity["entity"]
-                if label == "CARDINAL" or label == "QUANTITY":
-                    self.user_data["age"] = entity["entity"]
+                if label in ["CARDINAL", "QUANTITY", "DATE"]:
+                    text = entity["entity"]
+                    age = self.nlp_processor.extract_number(text)
+                    if age:
+                        self.user_data["age"] = age
         return self.user_data
