@@ -7,7 +7,7 @@ LAPTOP_NAME = platform.uname()[1]
 
 def set_db_password(laptop_name):
     password_dict = {
-        "NerdyTech": "",
+        "NerdyTech": "mirabilis",
         "your_laptop_name": "your password"
     }
 

@@ -21,12 +21,12 @@ class NLPProcessor:
 
     def extract_phone_number(self, text):
         us_mob_no_regex = r"^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$"
-        indian_mob_no_regex = r"^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$"
-        return bool(re.match(us_mob_no_regex, text)) or bool(re.match(indian_mob_no_regex, text))
+        indian_mob_no_regex = r"(\+91[\-\s]?)?[789]\d{9}"
+        return bool(re.search(us_mob_no_regex, text)) or bool(re.search(indian_mob_no_regex, text))
 
     def extract_email(self, text):
-        email_regex = r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
-        return bool(re.match(email_regex, text))
+        email_regex = r"[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+"
+        return bool(re.search(email_regex, text))
 
 
 class SentimentAnalyzer:
@@ -150,8 +150,8 @@ class ChatbotAI:
                 label = entity["label"]
                 if label == "PERSON":
                     self.user_data["name"] = entity["entity"]
-                elif label == "GPE":
+                if label == "GPE":
                     self.user_data["location"] = entity["entity"]
-                elif label == "CARDINAL" or label == "QUANTITY":
+                if label == "CARDINAL" or label == "QUANTITY":
                     self.user_data["age"] = entity["entity"]
         return self.user_data
