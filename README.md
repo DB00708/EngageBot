@@ -64,7 +64,6 @@ Before you begin, ensure you have the following software installed on your syste
 
 2. **Test the `add_user_data` API**:
     Use a tool like Postman, or any HTTP client to make a POST request to the `/add_user_data` endpoint.
-    ```
 
 
 ### POST /add_user_data
